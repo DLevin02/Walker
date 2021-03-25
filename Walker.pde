@@ -1,32 +1,33 @@
 class Walker {
-  float x, y;
-  float tx, ty;
-
-  float prevX, prevY;
+  int x;
+  int y;
 
   Walker() {
-    tx = 0;
-    ty = 10000;
-    x = map(noise(tx), 0, 1, 0, width);
-    y = map(noise(ty), 0, 1, 0, height);
+    x = width/2;
+    y = height/2;
   }
 
   void render() {
     stroke(255);
-    line(prevX, prevY, x, y);
+    point(x, y);
   }
 
   // Randomly move according to floating point values
-  void step() {
+  void walk() {
 
-    prevX = x;
-    prevY = y;
+    int intRandom = int(random(4));
 
-    x = map(noise(tx), 0, 1, 0, width);
-    y = map(noise(ty), 0, 1, 0, height);
+    if(intRandom == 0){
+      x++;
+    }else if (intRandom == 1){
+      x--;
+    }else if ( intRandom == 2){
+      y++;
+    }else{
+      y--;
+    }
 
-    tx += 0.01;
-    ty += 0.01;
-
+   x = constrain(x,0, width-1);
+   y = constrain(y,0, height -1);
   }
 }
